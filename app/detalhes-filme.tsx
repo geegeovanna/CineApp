@@ -23,7 +23,10 @@ export default function SobreScreen() {
         <Text style={styles.textTitulo}>Piratas do caribe: o baú da morte</Text>
 
         <View style={styles.viewDescricao}>
-
+          <View style={styles.viewDescricaoContent}>
+            <Text style={styles.textDescricao}>DURAÇÃO</Text>
+            <Text style={styles.textDescricaoTempo}>2h 40min</Text>
+          </View>
         </View>
 
       </View>
@@ -73,5 +76,26 @@ const styles = StyleSheet.create({
     width: 170,
     height: 50,
     borderRadius: 50,
+  },
+  viewDescricaoContent: {
+    backgroundColor:'rgba(213, 255, 218, 0.21)',
+    width: 90,
+    height: 30,
+    borderRadius: 50,
+    marginTop: 10,
+    marginLeft: 10,
+  },
+  textDescricao: {
+    color: '#D5FFDA',
+    fontSize: 14,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 5,
+  },
+  textDescricaoTempo: {
+    color: '#ffffff',
+    fontSize: 14, 
+    marginTop: -20,
+    left: 90,
   }
 });
