@@ -1,7 +1,9 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView  } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CardFilme from '../components/CardFilme';
+import { useEffect } from 'react';
+import Header from '../components/Header';
 
 const filmes = [
   {
@@ -51,18 +53,13 @@ const filmes = [
 export default function SobreScreen() {
   const router = useRouter();
 
+  useEffect(() => {
+    console.log('Catálogo carregado');
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity 
-          onPress={() => router.back()}
-          style={styles.buttonBack}
-        >
-          <Image source={require("../assets/images/voltar.png")} />
-        </TouchableOpacity>
-        
-        <Image source={require("../assets/images/logo-positiva.png")} style={styles.imageLogo} />
-      </View>
+      <Header />
 
       <View style={styles.titleContainer}>
         <Image source={require("../assets/images/camera.png")} style={styles.imageCamera} />
@@ -101,16 +98,6 @@ const styles = StyleSheet.create({
     flex: 1, 
     backgroundColor: '#000000',
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-  },
-  buttonBack: {
-    padding: 5,
-  },
   titleContainer: {
     flexDirection: 'row',      
     alignItems: 'center',      
@@ -131,6 +118,7 @@ const styles = StyleSheet.create({
   scroll: { 
     paddingHorizontal: 16,
     paddingBottom: 16,
+    alignItems: 'center',
   },
   footer: {
     flexDirection: 'row',
@@ -154,9 +142,5 @@ const styles = StyleSheet.create({
   imageSobre: {
     width: 30,
     height: 30,
-  },
-  imageLogo: {
-    marginTop: 20,
-    right: 140,
-  },  
+  }, 
 });

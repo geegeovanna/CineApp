@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, ImageSourcePropType, Pressable } from 'react-native';
+import { View, Text, Image, StyleSheet, ImageSourcePropType, Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 interface CardFilmeProps {
@@ -21,7 +21,10 @@ export default function CardFilme({
   return (
 
     <Pressable
-      style={styles.card}
+      style={({ pressed }) => [
+        styles.card,
+        pressed && styles.cardHovered,
+      ]}
     >
       <Image source={imagem} style={styles.capa} resizeMode="cover" />
 
@@ -41,24 +44,28 @@ export default function CardFilme({
         </Text>
 
         <View style={styles.acoesContainer}>
-          <TouchableOpacity 
-            onPress={() => setIsFavorito(!isFavorito)} 
-            activeOpacity={0.7}
+          <Pressable 
+            onPress={() => setIsFavorito(!isFavorito)}
+            style={({ pressed }) => [
+              pressed && { opacity: 0.6 },
+            ]}
           >
             <Ionicons 
               name={isFavorito ? "heart" : "heart-outline"} 
               size={32} 
               color="#D1FFD7" 
             />
-          </TouchableOpacity>
+          </Pressable>
 
-          <TouchableOpacity
-            style={styles.botaoDetalhes}
+          <Pressable
+            style={({ pressed }) => [
+              styles.botaoDetalhes,
+              pressed && { opacity: 0.7 },
+            ]}
             onPress={onPressDetalhes}
-            activeOpacity={0.8}
           >
             <Text style={styles.textoBotao}>Detalhes</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </View>
     </Pressable>

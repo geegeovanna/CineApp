@@ -1,4 +1,4 @@
-import { Text, StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, View, Image, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 
@@ -12,10 +12,15 @@ export default function Home() {
       <View style={styles.quadrado}>
         <Text style={styles.title}>Descobre, explora e guarda os melhores títulos do cinema!</Text>
         <Image source={require("../assets/images/amico.png")} style={styles.image} />
-        <TouchableOpacity onPress={() => router.push('/catalogo-filmes')}
-        style={styles.button}>
+        <Pressable 
+          onPress={() => router.push('/catalogo-filmes')}
+          style={({ pressed }) => [
+            styles.button,
+            pressed && styles.buttonPressionado
+          ]}
+        >
           <Text style={styles.buttonText}>Catálogo</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </SafeAreaView>
   );
@@ -30,11 +35,12 @@ const styles = StyleSheet.create({
   },
   quadrado: {
     width: '100%',
-    height: 630,
+    height: 660,
     backgroundColor: '#000000',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     top: 70,
+    alignItems: 'center',
   },
   title: {
     color: '#FFFFFF',
@@ -44,13 +50,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
     maxWidth: 250,
     top: 25,
-    left: 60,
   },
   image: {
     width: 210,
     height: 193,
     top: 90,
-    left: 80,
   },
   button: {
     backgroundColor: '#D5FFDA',
@@ -59,7 +63,9 @@ const styles = StyleSheet.create({
     marginTop: 180,
     width: 220,
     height: 50,
-    left: 80,
+  },
+  buttonPressionado: {
+    opacity: 0.6,
   },
   buttonText: {
     color: '#000000',
@@ -75,4 +81,4 @@ const styles = StyleSheet.create({
     top: -50,
     left: 150
   }
-});  
+});

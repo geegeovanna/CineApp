@@ -1,6 +1,8 @@
 import React from 'react';
+import { View, StyleSheet, Image, Text } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
-import DetalheFilme from '../components/DetalheFilme';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Header from '../components/Header';
 
 const dadosFilmes = {
   '1': {
@@ -48,17 +50,127 @@ const dadosFilmes = {
 };
 
 export default function TelaDetalhes() {
-
   const { id } = useLocalSearchParams<{ id: string }>();
   const filme = dadosFilmes[id as keyof typeof dadosFilmes] || dadosFilmes['1'];
 
   return (
-    <DetalheFilme
-      titulo={filme.titulo}
-      duracao={filme.duracao}
-      genero={filme.genero}
-      sinopse={filme.sinopse}
-      imagemDetalhe={filme.imagemDetalhe}
-    />
+    <SafeAreaView style={styles.container}>
+      <Header />
+
+      <View>
+        <Image source={filme.imagemDetalhe} style={styles.imageDetalhe} />
+
+        <Text style={styles.textTitulo}>{filme.titulo}</Text>
+
+        <View style={{ flexDirection: 'row', marginTop: 10, gap: 10, marginLeft: -7 }}>
+          <View style={styles.viewDescricao}>
+            <View style={styles.viewDescricaoContent}>
+              <Text style={styles.textDescricao}>DURAÇÃO</Text>
+              <Text style={styles.textDescricaoTempo}>{filme.duracao}</Text>
+            </View>
+          </View>
+
+          <View style={styles.viewDescricaoGenero}>
+            <View style={styles.viewDescricaoContentGenero}>
+              <Text style={styles.textDescricao}>GÊNERO</Text>
+              <Text style={styles.textDescricaoGenero}>{filme.genero}</Text>
+            </View>
+          </View>
+        </View>
+
+        <View>
+          <Text style={styles.textSinopse}>Sinopse</Text>
+          <Text style={styles.textDescricaoSinopse}>{filme.sinopse}</Text>
+        </View>
+      </View>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: { 
+    flex: 1, 
+    backgroundColor: '#000000',
+  }, 
+  imageDetalhe: {
+    alignContent: 'center',
+    marginTop: 20,
+    width: 350,
+    height: 280,
+    left: 20,
+    elevation: 5,
+    shadowColor: '#fe0d0dff',
+  },
+  textTitulo: {
+    color: '#D5FFDA',
+    fontSize: 20, 
+    fontWeight: 'bold',
+    marginTop: 20,
+    left: 20,
+  },
+  viewDescricao: {
+    marginTop: 20,
+    left: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.11)',
+    width: 180,
+    height: 50,
+    borderRadius: 50,
+  },
+  viewDescricaoContent: {
+    backgroundColor:'rgba(213, 255, 218, 0.21)',
+    width: 90,
+    height: 30,
+    borderRadius: 50,
+    marginTop: 10,
+    marginLeft: 10,
+  },
+  textDescricao: {
+    color: '#D5FFDA',
+    fontSize: 14,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 5,
+  },
+  textDescricaoTempo: {
+    color: '#ffffff',
+    fontSize: 14, 
+    marginTop: -20,
+    left: 100,
+  },
+  viewDescricaoContentGenero: {
+    backgroundColor:'rgba(213, 255, 218, 0.21)',
+    width: 80,
+    height: 30,
+    borderRadius: 50,
+    marginTop: 10,
+    marginLeft: 10,
+  },
+  viewDescricaoGenero: {
+    marginTop: 20,
+    left: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.11)',
+    width: 170,
+    height: 50,
+    borderRadius: 50,
+  },
+  textDescricaoGenero: {
+    color: '#ffffff',
+    fontSize: 14, 
+    marginTop: -20,
+    left: 90,
+  },
+  textSinopse: {
+    color: '#D5FFDA',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 30,
+    left: 20,
+  },
+  textDescricaoSinopse: {
+    color: '#ffffff',
+    fontSize: 16,
+    marginTop: 20,
+    fontWeight: 'normal',
+    marginHorizontal: 20,
+  }
+});
